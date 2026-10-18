@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Verifica navigazione tra origini</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; }
+    body { max-width: 42rem; margin: 12vh auto; padding: 0 1.25rem; color: #17324d; }
+    main { border: 1px solid #d6e1eb; border-radius: 1rem; padding: 2rem; }
+    h1 { margin-top: 0; font-size: 1.6rem; }
+    .ok { color: #146c43; font-weight: 700; }
+    .wait { color: #665500; }
+    code { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Verifica navigazione tra origini</h1>
+    <p id="result" class="wait">In attesa del marcatore di prova.</p>
+    <p>Questa pagina riconosce solo una stringa di prova prefissata. Non legge cookie,
+      credenziali o dati personali e non invia richieste di rete.</p>
+  </main>
+  <script>
+    (() => {
+      const expected = '#marker=NAV-TEST-20261018';
+      const matched = location.hash === expected;
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      if (matched) {
+        const result = document.getElementById('result');
+        result.className = 'ok';
+        result.textContent = 'Navigazione riuscita: il marcatore innocuo è arrivato su GitHub Pages.';
+      }
+    })();
+  </script>
+</body>
+</html>
